@@ -23,24 +23,14 @@ const fetchProducts = async (): Promise<Product[]> => {
   });
 };
 
-export default function EcommercePage() {
-  const [products, setProducts] = useState<Product[]>([]);
+export default function Checkout() {
   const [cart, setCart] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchProducts().then((data) => {
-      setProducts(data);
       console.log(data);
-      setIsLoading(false);
     });
   }, []);
-
-  const addToCart = (product: Product) => {
-    const cart = JSON.parse(localStorage.getItem("drinkCart") || "[]");
-    const updatedCart = [...cart, product];
-    localStorage.setItem("drinkCart", JSON.stringify(updatedCart));
-  };
 
   return (
     <div className="container mx-auto px-4 py-8 min-h-screen">
@@ -48,16 +38,7 @@ export default function EcommercePage() {
         Drunk in the house!
       </h1>
       <div className="flex flex-col md:flex-row gap-8">
-        <div className="md:w-2/3">
-          {isLoading ? (
-            <p className="text-center">Cargando productos...</p>
-          ) : (
-            <ProductList products={products} addToCart={addToCart} />
-          )}
-        </div>
-        <div className="md:w-1/3">
-          <Cart />
-        </div>
+        <Cart />
       </div>
     </div>
   );
