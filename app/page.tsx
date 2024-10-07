@@ -7,7 +7,7 @@ import ProductList from "@/components/ProductList";
 
 const fetchProducts = async (): Promise<Product[]> => {
   return new Promise((resolve, reject) => {
-    fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=")
+    fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos de la API");
