@@ -1,11 +1,16 @@
 "use client";
 
+// React
 import {useState, useEffect} from "react";
-import {Product} from "@/models/types";
-import Cart from "@/components/Cart";
-import ProductList from "@/components/ProductList";
 
-const fetchProducts = async (): Promise<Product[]> => {
+// Components
+import ProductList from "@/components/ProductList";
+import Cart from "@/components/Cart";
+
+// Context
+import {useAuth} from "./Context/storage";
+
+const fetchProducts = async (): Promise<any[]> => {
   return new Promise((resolve, reject) => {
     fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a")
       .then((response) => {
@@ -24,8 +29,7 @@ const fetchProducts = async (): Promise<Product[]> => {
 };
 
 export default function EcommercePage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<Product[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -36,10 +40,33 @@ export default function EcommercePage() {
     });
   }, []);
 
-  const addToCart = (product: Product) => {
-    const cart = JSON.parse(localStorage.getItem("drinkCart") || "[]");
-    const updatedCart = [...cart, product];
-    localStorage.setItem("drinkCart", JSON.stringify(updatedCart));
+  const {setCart} = useAuth((state) => state);
+
+  const manageItemCart = (newDrink: any) => {
+    const existingItems = localStorage.getItem("drinkCart");
+
+    let itemsOnCartArray = [];
+
+    let updatedItems: Array<any> = [];
+
+    if (existingItems) {
+      itemsOnCartArray = JSON.parse(existingItems);
+
+      const itemIndex = itemsOnCartArray.findIndex(
+        (item: {idDrink: string}) => item.idDrink === newDrink.idDrink
+      );
+
+      if (itemIndex === -1) {
+        updatedItems = [...itemsOnCartArray, newDrink];
+      } else {
+        updatedItems = [
+          ...itemsOnCartArray.slice(0, itemIndex),
+          ...itemsOnCartArray.slice(itemIndex + 1),
+        ];
+      }
+    }
+
+    setCart(updatedItems);
   };
 
   return (
@@ -52,11 +79,11 @@ export default function EcommercePage() {
           {isLoading ? (
             <p className="text-center">Cargando productos...</p>
           ) : (
-            <ProductList products={products} addToCart={addToCart} />
+            <ProductList products={products} addToCart={manageItemCart} />
           )}
         </div>
         <div className="md:w-1/3">
-          <Cart />
+          <Cart removeFromCart={manageItemCart} />
         </div>
       </div>
     </div>

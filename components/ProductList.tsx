@@ -4,7 +4,12 @@ import Image from "next/image";
 // NextUI
 import {Button} from "@nextui-org/react";
 
+// Context
+import {useAuth} from "@/app/Context/storage";
+
 export default function ProductList({products, addToCart}: any) {
+  const {cart} = useAuth((state) => state);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 h-svh flex-wrap overflow-y-auto scrollbar-hide">
       {products &&
@@ -41,14 +46,21 @@ export default function ProductList({products, addToCart}: any) {
                 );
               })}
             </div>
-            {/* // El boton de carrito todavia no actualiza en tiempo real el carrito de la derecha, se puede usar un context pero es una solucion muy elaborada, habria que ver algun parche simplemente */}
+
             <Button
               onClick={() => {
                 addToCart(product);
               }}
               className="mt-auto"
             >
-              Agregar al carrito
+              {cart?.some(
+                (cartItem: {idDrink: string}) =>
+                  cartItem.idDrink === product.idDrink
+              ) ? (
+                <p>Quitar al carrito</p>
+              ) : (
+                <p>Agregar al carrito</p>
+              )}
             </Button>
           </div>
         ))}
