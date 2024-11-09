@@ -1,9 +1,11 @@
 "use client";
 
-import {useState, useEffect} from "react";
+import {useEffect} from "react";
 import {Product} from "@/models/types";
-import Cart from "@/components/Cart";
-import ProductList from "@/components/ProductList";
+
+// Components
+import CheckoutCart from "@/components/CheckoutCart";
+import Payment from "@/components/Payment";
 
 const fetchProducts = async (): Promise<Product[]> => {
   return new Promise((resolve, reject) => {
@@ -24,8 +26,6 @@ const fetchProducts = async (): Promise<Product[]> => {
 };
 
 export default function Checkout() {
-  const [cart, setCart] = useState<Product[]>([]);
-
   useEffect(() => {
     fetchProducts().then((data) => {
       console.log(data);
@@ -38,7 +38,8 @@ export default function Checkout() {
         Drunk in the house!
       </h1>
       <div className="flex flex-col md:flex-row gap-8">
-        <Cart />
+        <CheckoutCart />
+        <Payment />
       </div>
     </div>
   );
