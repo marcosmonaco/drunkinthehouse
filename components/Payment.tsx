@@ -46,8 +46,8 @@ export default function Payment() {
   };
 
   return (
-    <div className="dark text-foreground bg-background min-h-screen ">
-      <div className="flex flex-col md:flex-row gap-4 mb-4">
+    <div className="dark text-foreground bg-background flex flex-col">
+      <div className="flex flex-col md:flex-row gap-4 mb-4 items-stretch">
         <Card className="flex-grow bg-transparent border-white border-1">
           <CardHeader>
             <h2 className="text-2xl font-bold">Selecciona tu método de pago</h2>
@@ -96,7 +96,7 @@ export default function Payment() {
           </CardBody>
         </Card>
 
-        <Card className="flex-grow bg-transparent border-white border-1 h-fit">
+        <Card className="flex-grow bg-transparent border-white border-1 ">
           <CardHeader>
             <h2 className="text-2xl font-bold">Opciones de envío</h2>
           </CardHeader>
@@ -121,29 +121,28 @@ export default function Payment() {
             />
           </CardBody>
         </Card>
+        {showBreakdown && (
+          <PaymentBreakdown
+            paymentMethod={selectedMethod}
+            paymentData={
+              selectedMethod === "QR"
+                ? "QR Code generado"
+                : dummyData[selectedMethod]
+            }
+            shippingOption={selectedShipping}
+            shippingDate={selectedDate}
+          />
+        )}
       </div>
       <Button
         color="primary"
         size="lg"
-        className="w-full"
+        className="w-fit self-end"
         onClick={handleConfirm}
         disabled={!selectedMethod || !selectedShipping || !selectedDate}
       >
         Confirmar
       </Button>
-
-      {showBreakdown && (
-        <PaymentBreakdown
-          paymentMethod={selectedMethod}
-          paymentData={
-            selectedMethod === "QR"
-              ? "QR Code generado"
-              : dummyData[selectedMethod]
-          }
-          shippingOption={selectedShipping}
-          shippingDate={selectedDate}
-        />
-      )}
     </div>
   );
 }

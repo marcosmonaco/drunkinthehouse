@@ -15,7 +15,7 @@ export default function OrderBreakdown({
   shippingDate,
 }: PaymentBreakdownProps) {
   return (
-    <Card className="mt-4 bg-transparent border-success border-1">
+    <Card className=" bg-transparent border-success border-1">
       <CardHeader>
         <h2 className="text-2xl font-bold">Resumen de Pago</h2>
       </CardHeader>
