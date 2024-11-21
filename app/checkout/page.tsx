@@ -37,7 +37,7 @@ export default function Checkout() {
       <h1 className="text-3xl font-bold mb-8 text-center">
         Drunk in the house!
       </h1>
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col md:flex-row gap-8 justify-center">
         <CheckoutCart />
         <Payment />
       </div>

@@ -22,7 +22,9 @@ export default function ProductList({products, addToCart}: any) {
               height={200}
               className="w-full h-48 object-cover mb-4 rounded"
             />
-            <h2 className="text-xl font-semibold mb-2">{product.strDrink}</h2>
+            <h2 className="text-xl font-semibold mb-2">
+              {product.strDrink} - 1 Litro
+            </h2>
             {/* // El total lo calculo con el id de la APi, ya que no incluye on precio como tal */}
             <p className="text-gray-600 mb-4">
               ${(Number(product.idDrink) / 1000).toFixed(0)}

@@ -35,7 +35,6 @@ export default function EcommercePage() {
   useEffect(() => {
     fetchProducts().then((data) => {
       setProducts(data);
-      console.log(data);
       setIsLoading(false);
     });
   }, []);

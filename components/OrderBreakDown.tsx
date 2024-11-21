@@ -16,8 +16,9 @@ export default function OrderBreakdown({
 }: PaymentBreakdownProps) {
   return (
     <Card className=" bg-transparent border-success border-1">
-      <CardHeader>
-        <h2 className="text-2xl font-bold">Resumen de Pago</h2>
+      <CardHeader className="flex flex-col">
+        <h2 className="text-2xl font-bold">Orden confirmada</h2>
+        <h2 className="text-lg font-bold">Detalles para el pago</h2>
       </CardHeader>
       <CardBody>
         <div className="space-y-2">
