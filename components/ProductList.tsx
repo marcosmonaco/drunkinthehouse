@@ -8,6 +8,7 @@ import {Button} from "@nextui-org/react";
 import {useAuth} from "@/app/Context/storage";
 
 export default function ProductList({products, addToCart}: any) {
+  // Estados
   const {cart} = useAuth((state) => state);
 
   return (
@@ -25,7 +26,7 @@ export default function ProductList({products, addToCart}: any) {
             <h2 className="text-xl font-semibold mb-2">
               {product.strDrink} - 1 Litro
             </h2>
-            {/* // El total lo calculo con el id de la APi, ya que no incluye on precio como tal */}
+            {/* // El total lo calculamos con el id de la APi, ya que no incluye un precio como tal */}
             <p className="text-gray-600 mb-4">
               ${(Number(product.idDrink) / 1000).toFixed(0)}
             </p>

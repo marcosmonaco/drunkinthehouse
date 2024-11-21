@@ -10,6 +10,8 @@ import Cart from "@/components/Cart";
 // Context
 import {useAuth} from "./Context/storage";
 
+// Con este Fetch nos traemos la data, esencialmente es un JSON pero que viene con la informacion de la tematica que seleccionamos
+
 const fetchProducts = async (): Promise<any[]> => {
   return new Promise((resolve, reject) => {
     fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a")

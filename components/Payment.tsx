@@ -27,6 +27,7 @@ const dummyData: Record<any, any> = {
 };
 
 export default function Payment() {
+  // Estados
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod | "">("");
   const [copied, setCopied] = useState(false);
   const [selectedShipping, setSelectedShipping] = useState<ShippingOption | "">(
@@ -35,6 +36,7 @@ export default function Payment() {
   const [selectedDate, setSelectedDate] = useState("");
   const [showBreakdown, setShowBreakdown] = useState(false);
 
+  // Metodo para copiar el metodo de pago seleccionado
   const handleCopy = () => {
     if (selectedMethod) {
       navigator.clipboard.writeText(dummyData[selectedMethod]);
@@ -43,6 +45,7 @@ export default function Payment() {
     }
   };
 
+  // Se realiza al presionar el boton de confirmacion
   const handleConfirm = () => {
     setShowBreakdown(true);
   };
