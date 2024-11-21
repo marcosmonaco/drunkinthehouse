@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useMemo, useState} from "react";
+import React, {useState} from "react";
 
 // Components
 import {
@@ -13,10 +13,6 @@ import {
   CardHeader,
 } from "@nextui-org/react";
 import PaymentBreakdown from "./OrderBreakDown";
-
-// Context
-import {useAuth} from "@/app/Context/storage";
-import Link from "next/link";
 
 const METHODS = ["CBU", "ALIAS", "QR"] as const;
 type PaymentMethod = (typeof METHODS)[number];
@@ -39,8 +35,6 @@ export default function Payment() {
   const [selectedDate, setSelectedDate] = useState("");
   const [showBreakdown, setShowBreakdown] = useState(false);
 
-  const {setCart, cart} = useAuth((state) => state);
-
   const handleCopy = () => {
     if (selectedMethod) {
       navigator.clipboard.writeText(dummyData[selectedMethod]);
@@ -48,10 +42,6 @@ export default function Payment() {
       setTimeout(() => setCopied(false), 2000);
     }
   };
-
-  const total = useMemo(() => {
-    return cart?.reduce((sum, item) => sum + Number(item.idDrink) / 1000, 0);
-  }, [cart]);
 
   const handleConfirm = () => {
     setShowBreakdown(true);

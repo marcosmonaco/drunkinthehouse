@@ -10,7 +10,7 @@ import Link from "next/link";
 // Context
 import {useAuth} from "@/app/Context/storage";
 
-export default function CheckoutCart({removeFromCart}: any) {
+export default function CheckoutCart() {
   const {setCart, cart} = useAuth((state) => state);
 
   // El total lo calculo con el id de la APi, ya que no incluye on precio como tal.
